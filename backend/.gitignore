@@ -1,0 +1,11 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Uploads ou arquivos temporários
+uploads/
+
+# VSCode settings (opcional)
+.vscode/
