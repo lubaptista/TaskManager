@@ -28,6 +28,7 @@ Projeto baseado no vídeo [Node.js API com JWT e MongoDB - DevStack](https://www
 
 ## Estrutura do projeto
 
+```bash
 TASKMANAGER/
 │
 ├── backend/
@@ -79,7 +80,7 @@ TASKMANAGER/
 │
 ├── README.md                       # Documentação do projeto como um todo
 └── .gitignore                      # Ignora arquivos/pastas no Git na raiz
-
+```
 
 ---
 
