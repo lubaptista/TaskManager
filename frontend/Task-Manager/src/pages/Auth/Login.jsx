@@ -3,6 +3,8 @@ import AuthLayout from '../../components/layouts/AuthLayout';
 import { Link, useNavigate } from 'react-router-dom';
 import Input from '../../components/Inputs/Input';
 import { validateEmail } from '../../utils/helper';
+import axiosInstance from '../../utils/axiosinstance';
+import { API_PATHS } from '../../utils/apiPaths';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -29,9 +31,29 @@ const Login = () => {
 
     // Chamada da api de login
     try {
+      const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN , {
+        email,
+        password,
+      });
 
+      const {token, role} = response.data;
+
+      if (token) {
+        localStorage.setItem("token", token);
+
+        //Redireciona baseado no cargo
+        if (role === "admin") {
+          navigate("/admin/dashboard");
+        } else {
+          navigate("/user/dashboard");
+        }
+      }
     } catch (error){
-      
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        setError("Algo deu errado. Por favor, tente novamente.");
+      }
     }
   };
 
