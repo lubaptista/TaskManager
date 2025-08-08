@@ -31,6 +31,9 @@ app.use("/api/users", userRoutes);
 app.use("/api/tasks", taskRoutes);
 app.use("/api/reports", reportRoutes);
 
+// Pasta de arquivos do servidor 
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 // Inicialização do Servidor
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`))
+app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));

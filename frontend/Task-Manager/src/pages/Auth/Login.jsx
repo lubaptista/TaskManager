@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import AuthLayout from '../../components/layouts/AuthLayout';
 import { Link, useNavigate } from 'react-router-dom';
 import Input from '../../components/Inputs/Input';
 import { validateEmail } from '../../utils/helper';
 import axiosInstance from '../../utils/axiosinstance';
 import { API_PATHS } from '../../utils/apiPaths';
+import { UserContext } from '../../context/userContext';
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const {updateUser} = useContext(UserContext)
   const navigate = useNavigate();
 
   // Gerenciar o envio de formulário de login
@@ -29,7 +31,7 @@ const Login = () => {
 
     setError("");
 
-    // Chamada da api de login
+    // Chamada da API de Login
     try {
       const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN , {
         email,
@@ -40,6 +42,7 @@ const Login = () => {
 
       if (token) {
         localStorage.setItem("token", token);
+        updateUser(response.data)
 
         //Redireciona baseado no cargo
         if (role === "admin") {
