@@ -6,6 +6,7 @@ import { PRIORITY_DATA } from '../../utils/data';
 import SelectDropdown from '../../components/Inputs/SelectDropdown';
 import SelectUsers from '../../components/Inputs/SelectUsers';
 import TodoListInput from '../../components/Inputs/TodoListInput';
+import AddAtachmentsInput from '../../components/Inputs/AddAtachmentsInput';
 
 const CreateTask = () => {
     const location = useLocation();
@@ -52,7 +53,42 @@ const CreateTask = () => {
     // Editar Tarefa
     const updateTask = async () => {};
     
-    const handleSubmit = async () => {};
+    const handleSubmit = async () => {
+        setError(null);
+
+        // Validação da entrada/input
+        if(!taskData.title.trim()) {
+            setError('O título é obrigatório.');
+            return;
+        }
+
+        if(!taskData.description.trim()) {
+            setError('A descrição é obrigatória.');
+            return;
+        }
+
+        if(!taskData.dueDate) {
+            setError('A data final é obrigatória.');
+            return;
+        }
+
+        if(taskData.assignedTo?.length === 0) {
+            setError('Tarefa não atribuída a nenhum membro.');
+            return;
+        }
+
+        if(taskData.todoChecklist?.length === 0) {
+            setError('Adicione ao menos um item para executar na tarefa.');
+            return;
+        }
+
+        if(taskId) {
+            updateTask();
+            return;
+        }
+
+        createTask();
+    };
 
     // Busca informações da Tarefa por ID
     const getTaskDetailsById = async () => {};
@@ -155,10 +191,39 @@ const CreateTask = () => {
 
                             <TodoListInput
                                 todoList={taskData?.todoChecklist}
-                                setTodoList={(value) => handleValueChange('todoChecklist', value)}
+                                setTodoList={(value) => 
+                                    handleValueChange('todoChecklist', value)
+                                }
                             />
                         </div>
-                    </div>     
+
+                        <div className='mt-3'>
+                            <label className='text-xs font-medium text-slate-600'>
+                                Adicionar Anexos
+                            </label>
+
+                            <AddAtachmentsInput
+                                attachments={taskData?.attachments}
+                                setAttachments={(value) => 
+                                    handleValueChange('attachments', value)
+                                }
+                            />
+                        </div>
+
+                        {error && (
+                            <p className='text-xs font-medium text-red-500 mt-5'>{error}</p>
+                        )}
+
+                        <div className='flex justify-end mt-7'>
+                            <button
+                                className='add-btn'
+                                onClick={handleSubmit}
+                                disabled={loading}
+                            >
+                                {taskId ? 'Editar Tarefa' : 'Criar Tarefa'}
+                            </button>
+                        </div>
+                    </div>
                 </div>  
             </div>
         </DashboardLayout>
