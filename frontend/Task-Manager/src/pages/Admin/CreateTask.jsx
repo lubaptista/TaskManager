@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
-import DashboardLayout from '../../components/layouts/DashboardLayout'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { LuTrash2 } from 'react-icons/lu';
+import { toast } from 'react-hot-toast';
 import { PRIORITY_DATA } from '../../utils/data';
+import DashboardLayout from '../../components/layouts/DashboardLayout'
 import SelectDropdown from '../../components/Inputs/SelectDropdown';
 import SelectUsers from '../../components/Inputs/SelectUsers';
 import TodoListInput from '../../components/Inputs/TodoListInput';
 import AddAtachmentsInput from '../../components/Inputs/AddAtachmentsInput';
+import axiosInstance from '../../utils/axiosinstance';
+import { API_PATHS } from '../../utils/apiPaths';
 
 const CreateTask = () => {
     const location = useLocation();
@@ -48,7 +51,32 @@ const CreateTask = () => {
     };
 
     // Criar Tarefa
-    const createTask = async () => {};
+    const createTask = async () => {
+        setLoading(true);
+
+        try {
+            const todolist = taskData.todoChecklist?.map((item) => ({
+                text: item,
+                completed: false,
+            }));
+
+            const response = await axiosInstance.post(API_PATHS.TASKS.CREATE_TASK, {
+                ...taskData,
+                dueDate:new Date(taskData.dueDate).toISOString(),
+                todoChecklist: todolist,
+            });
+
+            toast.success("Tarefa criada com sucesso");
+
+            clearData();
+        } catch (error) {
+            console.error('Erro ao criar tarefa: ', error);
+            setLoading(false);
+        } finally {
+            setLoading(false);
+
+        }
+    };
 
     // Editar Tarefa
     const updateTask = async () => {};
@@ -118,7 +146,7 @@ const CreateTask = () => {
 
                         <div className='mt-4'>
                             <label className='text-xs font-medium text-slate-600'>
-                                Título da Tarefa
+                                Título da Tarefa*
                             </label>
 
                             <input
@@ -131,7 +159,7 @@ const CreateTask = () => {
                         
                         <div className='mt-3'>
                             <label className='text-xs font-medium text-slate-600'>
-                                Descrição da Tarefa
+                                Descrição da Tarefa*
                             </label>
 
                             <textarea
@@ -159,7 +187,7 @@ const CreateTask = () => {
 
                             <div className='col-span-6 md:col-span-4'>
                                <label className='text-xs font-medium text-slate-600'>
-                                    Data limite
+                                    Data limite*
                                 </label>
 
                                 <input
@@ -172,7 +200,7 @@ const CreateTask = () => {
                             </div>
                             <div className='col-span-12 md:col-span-3'>
                                 <label className='text-xs font-medium text-slate-600'>
-                                    Atribuir a 
+                                    Atribuir a*
                                 </label>
 
                                 <SelectUsers
@@ -186,7 +214,7 @@ const CreateTask = () => {
 
                         <div className='mt-3'>
                             <label className='text-xs font-medium text-slate-600'>
-                                TODO Checklist
+                                TODO Checklist*
                             </label>
 
                             <TodoListInput
