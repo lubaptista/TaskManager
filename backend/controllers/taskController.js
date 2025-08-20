@@ -61,7 +61,7 @@ const getTasks = async (req, res) => {
 
         res.json({
            tasks,
-           statusSumary: {
+           statusSummary: {
             all: allTasks,
             pendingTasks,
             inProgressTasks,

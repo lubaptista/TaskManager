@@ -20,4 +20,4 @@ const AvatarGroup = ({ avatars, maxVisible = 3 }) => {
   )
 }
 
-export default AvatarGroup
+export default AvatarGroup;

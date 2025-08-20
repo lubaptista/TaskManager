@@ -34,7 +34,6 @@ const CustomBarChart = ({data}) => {
         }
         return null
     };
-    console.log(data)
 
     return (
         <div className='bg-white mt-6'>
