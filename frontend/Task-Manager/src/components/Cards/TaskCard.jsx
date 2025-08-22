@@ -31,8 +31,6 @@ dueDate, assignedTo, attachmentCount, completedTodoCount, todoChecklist, onClick
         }
     };
 
-    console.log(progress)
-
     return <div 
         className='bg-white rounded-xl py-4 shadow-gray-100 border border-gray-200/50 cursor-pointer'
         onClick={onClick}
@@ -77,14 +75,14 @@ dueDate, assignedTo, attachmentCount, completedTodoCount, todoChecklist, onClick
                 <div>
                     <label className='text-xs text-gray-500'>Data de Início</label>
                     <p className='text-[13px] font-medium text-gray-900'>
-                        {moment(createdAt).format('D [de] MMMM [de] YYYY')}
+                        {moment(createdAt).utc().format('D [de] MMMM [de] YYYY')}
                     </p>
                 </div>
                 
                 <div>
                     <label className='text-xs text-gray-500'>Data Final</label>
                     <p className='text-[13px] font-medium text-gray-900'>
-                        {moment(dueDate).format('D [de] MMMM [de] YYYY')}
+                        {moment(dueDate).utc().format('D [de] MMMM [de] YYYY')}
                     </p>
                 </div>
             </div>

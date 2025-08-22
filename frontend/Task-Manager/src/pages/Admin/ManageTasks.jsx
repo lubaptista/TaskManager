@@ -52,6 +52,7 @@ const ManageTask = () => {
     const handleDownloadReport = async () => {
 
     };
+    console.log(allTasks)
 
     useEffect(() => {
         getAllTasks(filterStatus);

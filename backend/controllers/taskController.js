@@ -83,6 +83,7 @@ const getTaskById = async (req, res) => {
             "assignedTo",
             "name email profileImageUrl"
         );
+        console.log(task.dueDate)
 
         if (!task)
             res.status(404).json({ message: "Tarefa não encontrada" });
@@ -145,7 +146,7 @@ const updateTask = async (req, res) => {
         task.title = req.body.title || task.title;
         task.description = req.body.description || task.description;
         task.priority = req.body.priority || task.priority;
-        task.dueData = req.body.dueData || task.dueData;
+        task.dueDate = req.body.dueDate || task.dueDate;
         task.todoChecklist = req.body.todoChecklist || task.todoChecklist;
         task.attachments = req.body.attachments || task.attachments;
 
