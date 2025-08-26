@@ -50,12 +50,29 @@ const ManageTask = () => {
 
     // Baixar relatório da tarefa
     const handleDownloadReport = async () => {
+        try {
+            const response = await axiosInstance.get(API_PATHS.REPORTS.EXPORT_TASKS, {
+                responseType: 'blob',
+            });
 
+            // Cria a URL para o blob
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'task_details.xlsx');
+            document.body.appendChild(link);
+            link.click();
+            link.parentNode.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error('Erro ao baixar detalhes das tarefas: ', error);
+            toast.error('Falha ao baixar detalhes das tarefas. Por favor tente novamente.');
+        }
     };
-    console.log(allTasks)
 
     useEffect(() => {
         getAllTasks(filterStatus);
+
         return () => {};
     }, [filterStatus]);
 
@@ -65,11 +82,6 @@ const ManageTask = () => {
                 <div className='flex flex-col lg:flex-row lg:items-center justify-between'>
                     <div className='flex items-center justify-between gap-3'>
                         <h2 className='text-xl md:text-xl font-medium'>Minhas Tarefas</h2>
-
-                        <button className='flex lg:hidden dowload-btn' onClick={handleDownloadReport}>
-                            <LuFileSpreadsheet className='text-lg' />
-                            Baixar Relatório
-                        </button>
                     </div>
 
                     {tabs?.[0]?.count > 0 && (
@@ -80,7 +92,7 @@ const ManageTask = () => {
                                 setActiveTab={setFilterStatus}
                             />
 
-                            <button className='hidden lg:flex download-btn' onClick={handleDownloadReport}>
+                            <button className='download-btn hidden lg:flex' onClick={handleDownloadReport}>
                                 <LuFileSpreadsheet className='text-lg' />
                                 Baixar Relatório
                             </button>

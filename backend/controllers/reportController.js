@@ -61,7 +61,7 @@ const exportTasksReport = async (req, res) => {
 // @access  Private (Admin)
 const exportUsersReport = async (req, res) => {
     try {
-        const users = await User.find().select( "assignedTo", "name email _id" ).lean();
+        const users = await User.find().select("name email _id" ).lean();
         const userTasks = await Task.find().populate( "assignedTo", "name email _id" );
 
         const userTaskMap = {};
@@ -70,8 +70,8 @@ const exportUsersReport = async (req, res) => {
                 name: user.name,
                 email: user.email,
                 taskCount: 0,
-                penddingTasks: 0,
-                inProgress:0,
+                pendingTasks: 0,
+                inProgressTasks:0,
                 completedTasks: 0,
             };
         });
@@ -82,7 +82,7 @@ const exportUsersReport = async (req, res) => {
                     if(userTaskMap[assignedUser._id]) {
                         userTaskMap[assignedUser._id].taskCount += 1;
                         if(task.status === "Pending") {
-                            userTaskMap[assignedUser._id].penddingTasks +=1;
+                            userTaskMap[assignedUser._id].pendingTasks +=1;
                         } else if(task.status === "In Progress") {
                             userTaskMap[assignedUser._id].inProgressTasks +=1;
                         } else if(task.status === "Completed") {
@@ -124,7 +124,7 @@ const exportUsersReport = async (req, res) => {
         });
 
     } catch (error) {
-        res.status(500).json({ message: "Erro ao exportar tarefas", error: error.message });
+        res.status(500).json({ message: "Erro ao exportar tarefas dos usuários", error: error.message });
     }
 };
 

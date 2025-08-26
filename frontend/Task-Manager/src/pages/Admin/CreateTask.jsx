@@ -185,7 +185,7 @@ const CreateTask = () => {
             toast.success('Tarefa apagada com sucesso');
             navigate('/admin/tasks')
         } catch (error) {
-            console.error('Erro ao apagar tarefa: ', error.response?.data?.message);
+            console.error('Erro ao apagar tarefa: ', error.response?.data?.message || error.message);
         } 
     };
 
