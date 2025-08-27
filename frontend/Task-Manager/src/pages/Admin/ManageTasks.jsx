@@ -82,6 +82,11 @@ const ManageTask = () => {
                 <div className='flex flex-col lg:flex-row lg:items-center justify-between'>
                     <div className='flex items-center justify-between gap-3'>
                         <h2 className='text-xl md:text-xl font-medium'>Minhas Tarefas</h2>
+
+                        <button className='download-btn flex lg:hiden' onClick={handleDownloadReport}>
+                            <LuFileSpreadsheet className='text-lg' />
+                            Baixar Relatório
+                        </button>
                     </div>
 
                     {tabs?.[0]?.count > 0 && (

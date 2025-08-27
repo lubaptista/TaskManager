@@ -92,28 +92,28 @@ const Dashboard = () => {
 
                 <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mt-5'>
                     <InfoCard
-                        label='Total de Tarefas'
+                        label=' Total de Tarefas'
                         value={addThousandsSeparator(
                             dashboardData?.charts?.taskDistribuition?.All || 0
                         )}
                         color='bg-primary'
                     />
                     <InfoCard
-                        label='Tarefas Pendentes'
+                        label=' Tarefas Pendentes'
                         value={addThousandsSeparator(
                             dashboardData?.charts?.taskDistribuition?.Pending || 0
                         )}
-                        color='bg-violet-500'
+                        color=' bg-violet-500'
                     />
                     <InfoCard
-                        label='Tarefas Em Progresso'
+                        label=' Tarefas Em Progresso'
                         value={addThousandsSeparator(
                             dashboardData?.charts?.taskDistribuition?.InProgress || 0
                         )}
                         color='bg-cyan-500'
                     />
                     <InfoCard
-                        label='Tarefas Completas'
+                        label=' Tarefas Completas'
                         value={addThousandsSeparator(
                             dashboardData?.charts?.taskDistribuition?.Completed || 0
                         )}
