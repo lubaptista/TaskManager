@@ -25,6 +25,7 @@ const getTasks = async (req, res) => {
                 "name email profileImageUrl"
             );
         }
+        console.log(tasks)
 
         // Adiciona contador de todoChecklist completos para cada tarefa 
         tasks = await Promise.all(
@@ -365,7 +366,7 @@ const getUserDashboardData = async (req, res) => {
         const taskPriorities = ["Low", "Medium", "High"];
         const taskPriorityLevelsRaw = await Task.aggregate([
             { $match: { assignedTo: userId }},
-            { $group: { _id: "$status", count: { $sum: 1 }}},
+            { $group: { _id: "$priority", count: { $sum: 1 }}},
         ]);
 
         const taskPriorityLevels = taskPriorities.reduce((acc, priority) => {

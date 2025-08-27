@@ -7,7 +7,7 @@ const router = express.Router();
 //Task Management Routes
 router.get("/dashboard-data", protect, getDashboardData); 
 router.get("/user-dashboard-data", protect, getUserDashboardData); 
-router.get("/", protect, adminOnly, getTasks); //Busca todas as tarefas (Admin: todas; User: atribuídas)
+router.get("/", protect, getTasks); //Busca todas as tarefas (Admin: todas; User: atribuídas)
 router.get("/:id", protect, getTaskById); //Busca uma tarefa em específico pelo ID
 router.post("/", protect, adminOnly, createTask); //Criar uma tarefa (apenas Admin)
 router.put("/:id", protect, updateTask); //Editar detalhes de uma tarefa em específico pelo ID
