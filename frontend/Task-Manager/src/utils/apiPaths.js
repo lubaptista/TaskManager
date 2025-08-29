@@ -26,7 +26,7 @@ export const API_PATHS = {
         DELETE_TASK: (taskId) => `/api/tasks/${taskId}`, // Apaga tarefa (apenas Admin)
     
         UPDATE_TASK_STATUS: (taskId) => `/api/tasks/${taskId}/status`, // Atualiza status da tarefa
-        UPDATE_TASK_CHECKLIST: (taskId) => `/api/tasks/${taskId}/todo`, // Atualiza checklist da tarefa
+        UPDATE_TODO_CHECKLIST: (taskId) => `/api/tasks/${taskId}/todo`, // Atualiza checklist da tarefa
     },
 
     REPORTS: {

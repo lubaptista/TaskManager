@@ -28,7 +28,6 @@ const MyTasks = () => {
 
             // Percorre dados do statusSummary com labels fixas e ordem
             const statusSummary = response.data?.statusSummary || {};
-            console.log(response.data)
 
             const statusArray = [
                 { label: 'All', count: statusSummary.all || 0 }, 

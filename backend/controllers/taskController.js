@@ -25,7 +25,6 @@ const getTasks = async (req, res) => {
                 "name email profileImageUrl"
             );
         }
-        console.log(tasks)
 
         // Adiciona contador de todoChecklist completos para cada tarefa 
         tasks = await Promise.all(
@@ -84,7 +83,6 @@ const getTaskById = async (req, res) => {
             "assignedTo",
             "name email profileImageUrl"
         );
-        console.log(task.dueDate)
 
         if (!task)
             res.status(404).json({ message: "Tarefa não encontrada" });
